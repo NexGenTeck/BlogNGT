@@ -197,7 +197,7 @@ export function Chatbot() {
                 src="/logo.png"
                 alt="NexGenTeck Logo"
                 fill
-                className="object-contain p-0.5"
+                className="object-cover"
               />
               <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-black animate-pulse z-10" />
             </div>
@@ -217,7 +217,7 @@ export function Chatbot() {
                   src="/logo.png"
                   alt="NexGenTeck Logo"
                   fill
-                  className="object-contain p-0.5"
+                  className="object-cover"
                 />
               </div>
               <div>
@@ -273,7 +273,7 @@ export function Chatbot() {
                       src="/logo.png"
                       alt="NexGenTeck Logo"
                       fill
-                      className="object-contain p-0.5"
+                      className="object-cover"
                     />
                   </div>
                 )}
@@ -332,7 +332,7 @@ export function Chatbot() {
                     src="/logo.png"
                     alt="NexGenTeck Logo"
                     fill
-                    className="object-contain p-0.5"
+                    className="object-cover"
                   />
                 </div>
                 <div className="px-3 py-2 rounded-xl bg-white/5 text-xs flex items-center space-x-1">

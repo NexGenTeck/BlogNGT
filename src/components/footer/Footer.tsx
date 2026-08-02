@@ -38,7 +38,7 @@ export function Footer() {
                   src="/logo.png"
                   alt="NexGenTeck Logo"
                   fill
-                  className="object-contain p-0.5"
+                  className="object-cover"
                 />
               </div>
               <span className="text-xl font-extrabold text-white tracking-tight">

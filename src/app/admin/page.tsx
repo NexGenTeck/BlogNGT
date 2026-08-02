@@ -249,7 +249,7 @@ export default function AdminPage() {
                 src="/logo.png"
                 alt="NexGenTeck Logo"
                 fill
-                className="object-contain p-1"
+                className="object-cover"
                 priority
               />
             </div>

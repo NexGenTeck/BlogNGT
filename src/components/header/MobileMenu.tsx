@@ -25,7 +25,7 @@ export function MobileMenu({ isOpen, onClose, onOpenSearch }: MobileMenuProps) {
               src="/logo.png"
               alt="NexGenTeck Logo"
               fill
-              className="object-contain p-0.5"
+              className="object-cover"
             />
           </div>
           <span className="text-lg font-bold text-white tracking-tight">

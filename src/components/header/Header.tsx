@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, Moon, Menu, ChevronDown, ExternalLink, Lock } from 'lucide-react';
+import { Search, Moon, Sun, Menu, ChevronDown, ExternalLink, Lock } from 'lucide-react';
 import { SearchModal } from './SearchModal';
 import { MobileMenu } from './MobileMenu';
 import { CATEGORIES } from '@/lib/categories';
@@ -13,14 +13,34 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryHovered, setIsCategoryHovered] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
+
+    // Initialize theme from storage or DOM
+    const savedTheme = localStorage.getItem('nexgenteck_theme') as 'dark' | 'light' | null;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.remove('dark', 'light');
+      document.documentElement.classList.add(savedTheme);
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    document.documentElement.classList.remove('dark', 'light');
+    document.documentElement.classList.add(nextTheme);
+    localStorage.setItem('nexgenteck_theme', nextTheme);
+  };
 
   return (
     <>
@@ -38,13 +58,13 @@ export function Header() {
                     src="/logo.png"
                     alt="NexGenTeck Logo"
                     fill
-                    className="object-contain p-0.5"
+                    className="object-cover"
                     priority
                   />
                 </div>
                 <div className="flex flex-col">
                   <div className="flex items-center space-x-1.5">
-                    <span className="text-xl font-extrabold text-white tracking-tight">
+                    <span className="text-xl font-extrabold text-white dark:text-white light:text-slate-900 tracking-tight">
                       NexGen<span className="text-[#ff7a00]">Teck</span>
                     </span>
                     <span className="text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/30">
@@ -59,8 +79,8 @@ export function Header() {
             </div>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-1 font-medium text-sm text-zinc-300">
-              <Link href="/" className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
+            <nav className="hidden lg:flex items-center space-x-4 font-medium text-sm text-zinc-300">
+              <Link href="/" className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
                 Home
               </Link>
 
@@ -72,7 +92,7 @@ export function Header() {
               >
                 <Link
                   href="/categories"
-                  className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors flex items-center"
+                  className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors flex items-center"
                 >
                   Categories <ChevronDown className="w-3.5 h-3.5 ml-1 text-zinc-400" />
                 </Link>
@@ -105,22 +125,10 @@ export function Header() {
                 )}
               </div>
 
-              <Link href="/category/ai-automation" className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
-                AI
-              </Link>
-              <Link href="/category/web-development" className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
-                Web Dev
-              </Link>
-              <Link href="/category/digital-marketing" className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
-                Digital Marketing
-              </Link>
-              <Link href="/category/business" className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
-                Business
-              </Link>
-              <Link href="/about" className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
+              <Link href="/about" className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
                 About
               </Link>
-              <Link href="/contact" className="px-3 py-2 rounded-lg hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
+              <Link href="/contact" className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
                 Contact
               </Link>
             </nav>
@@ -148,13 +156,18 @@ export function Header() {
                 <span className="text-[10px] text-zinc-500 bg-white/5 px-1.5 py-0.5 rounded hidden md:inline">⌘K</span>
               </button>
 
-              {/* Dark Mode Indicator */}
-              <div
-                title="Dark Theme Active"
-                className="p-2.5 rounded-xl bg-white/5 border border-white/5 text-[#ff7a00]"
+              {/* Working Theme Switcher Button */}
+              <button
+                onClick={toggleTheme}
+                title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
+                className="p-2.5 rounded-xl bg-white/5 hover:bg-[#ff7a00]/20 border border-white/5 text-[#ff7a00] transition-all"
               >
-                <Moon className="w-4 h-4" />
-              </div>
+                {theme === 'dark' ? (
+                  <Moon className="w-4 h-4" />
+                ) : (
+                  <Sun className="w-4 h-4 text-amber-400" />
+                )}
+              </button>
 
               {/* Subscribe CTA Button */}
               <a

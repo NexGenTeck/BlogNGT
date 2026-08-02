@@ -22,7 +22,7 @@ export function RightSidebar() {
               src="/logo.png"
               alt="NexGenTeck Logo"
               fill
-              className="object-contain p-0.5"
+              className="object-cover"
             />
           </div>
           <div>

@@ -190,13 +190,18 @@ export function Chatbot() {
           <button
             onClick={() => setIsOpen(true)}
             aria-label="Open NexGenTeck AI Chatbot"
-            className="group relative flex items-center space-x-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-[#ff7a00] to-[#ff9e00] text-black font-extrabold text-xs shadow-2xl brand-glow-hover transition-all hover:scale-105"
+            className="group relative flex items-center space-x-2.5 px-4 py-3 rounded-2xl bg-gradient-to-r from-[#ff7a00] to-[#ff9e00] text-black font-extrabold text-xs shadow-2xl brand-glow-hover transition-all hover:scale-105 border border-white/20"
           >
-            <div className="relative">
-              <Bot className="w-5 h-5 text-black" />
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-black animate-pulse" />
+            <div className="relative w-6 h-6 rounded-lg overflow-hidden bg-black border border-black/40 shrink-0 shadow-md">
+              <Image
+                src="/logo.png"
+                alt="NexGenTeck Logo"
+                fill
+                className="object-contain p-0.5"
+              />
+              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-black animate-pulse z-10" />
             </div>
-            <span className="hidden sm:inline">NexGenTeck AI Chat</span>
+            <span className="hidden sm:inline tracking-tight">NexGenTeck AI Chat</span>
           </button>
         )}
       </div>
@@ -263,8 +268,13 @@ export function Chatbot() {
                 }`}
               >
                 {msg.sender === 'bot' && (
-                  <div className="w-6 h-6 rounded-lg bg-[#ff7a00]/20 border border-[#ff7a00]/30 text-[#ff7a00] flex items-center justify-center shrink-0 mt-1">
-                    <Bot className="w-3.5 h-3.5" />
+                  <div className="w-6 h-6 rounded-lg relative overflow-hidden bg-black border border-white/10 shrink-0 mt-1 shadow-sm">
+                    <Image
+                      src="/logo.png"
+                      alt="NexGenTeck Logo"
+                      fill
+                      className="object-contain p-0.5"
+                    />
                   </div>
                 )}
 
@@ -317,8 +327,13 @@ export function Chatbot() {
 
             {isTyping && (
               <div className="flex items-center space-x-2 text-zinc-400">
-                <div className="w-6 h-6 rounded-lg bg-[#ff7a00]/20 border border-[#ff7a00]/30 text-[#ff7a00] flex items-center justify-center">
-                  <Bot className="w-3.5 h-3.5" />
+                <div className="w-6 h-6 rounded-lg relative overflow-hidden bg-black border border-white/10 shrink-0">
+                  <Image
+                    src="/logo.png"
+                    alt="NexGenTeck Logo"
+                    fill
+                    className="object-contain p-0.5"
+                  />
                 </div>
                 <div className="px-3 py-2 rounded-xl bg-white/5 text-xs flex items-center space-x-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#ff7a00] animate-bounce" />

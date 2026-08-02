@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Search, Moon, Menu, ChevronDown, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
+import { Search, Moon, Menu, ChevronDown, ExternalLink, Lock } from 'lucide-react';
 import { SearchModal } from './SearchModal';
 import { MobileMenu } from './MobileMenu';
 import { CATEGORIES } from '@/lib/categories';
@@ -24,17 +25,22 @@ export function Header() {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
-          isScrolled ? 'glass-header py-3 shadow-2xl' : 'bg-transparent py-5'
-        }`}
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${isScrolled ? 'glass-header py-3 shadow-2xl' : 'bg-transparent py-5'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
             {/* Brand Logo matching Main NexGenTeck Website */}
             <div className="flex items-center space-x-3">
               <Link href="/" className="flex items-center space-x-2.5 group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ff7a00] to-[#ff9e00] flex items-center justify-center font-extrabold text-black text-xl shadow-md group-hover:scale-105 transition-transform">
-                  N
+                <div className="w-10 h-10 rounded-xl relative overflow-hidden shadow-md group-hover:scale-105 transition-transform border border-white/10 shrink-0 bg-black">
+                  <Image
+                    src="/logo.png"
+                    alt="NexGenTeck Logo"
+                    fill
+                    className="object-contain p-0.5"
+                    priority
+                  />
                 </div>
                 <div className="flex flex-col">
                   <div className="flex items-center space-x-1.5">
@@ -46,7 +52,7 @@ export function Header() {
                     </span>
                   </div>
                   <span className="text-[10px] text-zinc-400 tracking-wide font-medium hidden sm:block">
-                    Your Digital Growth Partner
+                    Your Digital Backbone
                   </span>
                 </div>
               </Link>
@@ -121,16 +127,15 @@ export function Header() {
 
             {/* Right Action Icons & Buttons */}
             <div className="flex items-center space-x-3">
-              {/* Back to Main Site Link */}
-              <a
-                href="https://www.nexgenteck.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden xl:flex items-center text-xs font-medium text-zinc-400 hover:text-[#ff7a00] transition-colors mr-2"
-                title="Visit main NexGenTeck company website"
+              {/* Admin Portal Link */}
+              <Link
+                href="/admin"
+                className="p-2.5 rounded-xl bg-white/5 hover:bg-[#ff7a00]/10 text-zinc-300 hover:text-[#ff7a00] border border-white/5 transition-all flex items-center space-x-1.5"
+                title="Admin Portal"
               >
-                nexgenteck.com <ExternalLink className="w-3 h-3 ml-1" />
-              </a>
+                <Lock className="w-4 h-4 text-[#ff7a00]" />
+                <span className="text-xs font-semibold hidden md:inline">Admin</span>
+              </Link>
 
               {/* Instant Search Trigger */}
               <button

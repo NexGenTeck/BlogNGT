@@ -17,8 +17,13 @@ export function RightSidebar() {
       {/* 1. About NexGenTeck Card */}
       <div className="p-6 rounded-2xl bg-[#141417] border border-white/10 glass-card space-y-4">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#ff7a00] to-[#ff9e00] flex items-center justify-center font-extrabold text-black text-xl shadow-md">
-            N
+          <div className="w-10 h-10 rounded-xl relative overflow-hidden shadow-md border border-white/10 shrink-0 bg-black">
+            <Image
+              src="/logo.png"
+              alt="NexGenTeck Logo"
+              fill
+              className="object-contain p-0.5"
+            />
           </div>
           <div>
             <h3 className="text-base font-bold text-white">NexGenTeck Blog</h3>

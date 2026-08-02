@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Header } from '@/components/header/Header';
 import { Footer } from '@/components/footer/Footer';
+import { Chatbot } from '@/components/chatbot/Chatbot';
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/seo/JsonLdSchema';
 
 export const metadata: Metadata = {
@@ -59,12 +60,13 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <WebSiteJsonLd />
       </head>
-      <body className="bg-[#0b0b0b] text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-[#ff7a00]/30 selection:text-white">
+      <body className="bg-[#0b0b0b] text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-[#ff7a00]/30 selection:text-white relative">
         <Header />
         <main className="flex-1">
           {children}
         </main>
         <Footer />
+        <Chatbot />
       </body>
     </html>
   );

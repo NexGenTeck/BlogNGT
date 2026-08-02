@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { X, ChevronRight, Home, Grid, Sparkles, Code, TrendingUp, BookOpen, Info, Mail } from 'lucide-react';
 import { CATEGORIES } from '@/lib/categories';
 
@@ -19,8 +20,13 @@ export function MobileMenu({ isOpen, onClose, onOpenSearch }: MobileMenuProps) {
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-white/10">
         <Link href="/" onClick={onClose} className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#ff7a00] to-[#ff9e00] flex items-center justify-center font-bold text-black text-lg">
-            N
+          <div className="w-8 h-8 rounded-lg relative overflow-hidden shadow-md border border-white/10 shrink-0 bg-black">
+            <Image
+              src="/logo.png"
+              alt="NexGenTeck Logo"
+              fill
+              className="object-contain p-0.5"
+            />
           </div>
           <span className="text-lg font-bold text-white tracking-tight">
             NexGen<span className="text-[#ff7a00]">Teck</span>

@@ -536,35 +536,44 @@ While WordPress served the internet well for decades, modern web applications de
   }
 ];
 
+import { getStoredPosts } from './postStore';
+
 // Helper Functions
 export function getAllPosts(): Post[] {
-  return POSTS.filter((post) => !post.isDraft);
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.filter((post) => !post.isDraft);
 }
 
 export function getPostBySlug(slug: string): Post | undefined {
-  return POSTS.find((p) => p.slug === slug);
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.find((p) => p.slug === slug);
 }
 
 export function getFeaturedPosts(): Post[] {
-  return POSTS.filter((p) => p.isFeatured && !p.isDraft);
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.filter((p) => p.isFeatured && !p.isDraft);
 }
 
 export function getPopularPosts(): Post[] {
-  return POSTS.filter((p) => p.isPopular && !p.isDraft);
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.filter((p) => p.isPopular && !p.isDraft);
 }
 
 export function getTrendingPosts(): Post[] {
-  return POSTS.filter((p) => p.isTrending && !p.isDraft);
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.filter((p) => p.isTrending && !p.isDraft);
 }
 
 export function getPostsByCategory(categorySlug: string): Post[] {
-  return POSTS.filter(
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.filter(
     (p) => p.category.toLowerCase() === categorySlug.toLowerCase() && !p.isDraft
   );
 }
 
 export function getPostsByTag(tagSlug: string): Post[] {
-  return POSTS.filter(
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.filter(
     (p) =>
       p.tags.some(
         (t) =>
@@ -575,7 +584,8 @@ export function getPostsByTag(tagSlug: string): Post[] {
 }
 
 export function getPostsByAuthor(authorId: string): Post[] {
-  return POSTS.filter((p) => p.author.id === authorId && !p.isDraft);
+  const postsList = typeof window !== 'undefined' ? getStoredPosts() : POSTS;
+  return postsList.filter((p) => p.author.id === authorId && !p.isDraft);
 }
 
 export function searchPosts(query: string, category?: string, tag?: string): Post[] {

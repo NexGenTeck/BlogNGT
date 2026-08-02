@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, CheckCircle2, ArrowRight, Twitter, Linkedin, Github, Youtube, ShieldCheck } from 'lucide-react';
 import { CATEGORIES } from '@/lib/categories';
 import { AdSlot } from '../ads/AdSlot';
@@ -32,8 +33,13 @@ export function Footer() {
           {/* Column 1: Brand Info */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center space-x-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#ff7a00] to-[#ff9e00] flex items-center justify-center font-extrabold text-black text-xl shadow-md">
-                N
+              <div className="w-10 h-10 rounded-xl relative overflow-hidden shadow-md border border-white/10 shrink-0 bg-black">
+                <Image
+                  src="/logo.png"
+                  alt="NexGenTeck Logo"
+                  fill
+                  className="object-contain p-0.5"
+                />
               </div>
               <span className="text-xl font-extrabold text-white tracking-tight">
                 NexGen<span className="text-[#ff7a00]">Teck</span>
@@ -107,6 +113,7 @@ export function Footer() {
               <li><Link href="/" className="hover:text-[#ff7a00] transition-colors">Home</Link></li>
               <li><Link href="/about" className="hover:text-[#ff7a00] transition-colors">About Us</Link></li>
               <li><Link href="/categories" className="hover:text-[#ff7a00] transition-colors">All Categories</Link></li>
+              <li><Link href="/admin" className="hover:text-[#ff7a00] font-semibold text-[#ff7a00] transition-colors">Admin Portal 🔐</Link></li>
               <li><Link href="/search" className="hover:text-[#ff7a00] transition-colors">Instant Search</Link></li>
               <li><Link href="/write-for-us" className="hover:text-[#ff7a00] transition-colors">Write For Us</Link></li>
               <li><Link href="/contact" className="hover:text-[#ff7a00] transition-colors">Contact Editorial</Link></li>

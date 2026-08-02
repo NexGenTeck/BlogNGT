@@ -89,10 +89,20 @@ export function Header() {
                           <Link
                             key={cat.id}
                             href={`/category/${cat.slug}`}
-                            className="px-3 py-2 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#ff7a00]/10 flex items-center justify-between transition-colors"
+                            className="px-2.5 py-2 rounded-lg text-xs font-medium text-zinc-300 hover:text-white hover:bg-[#ff7a00]/10 flex items-center justify-between transition-colors group"
                           >
-                            <span>{cat.name}</span>
-                            <span className="text-[10px] text-[#ff7a00]">Explore →</span>
+                            <div className="flex items-center space-x-2.5">
+                              <div className="w-6 h-6 rounded-md relative overflow-hidden border border-white/10 shrink-0 bg-zinc-800">
+                                <Image
+                                  src={cat.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=100&q=80'}
+                                  alt={cat.name}
+                                  fill
+                                  className="object-cover"
+                                />
+                              </div>
+                              <span>{cat.name}</span>
+                            </div>
+                            <span className="text-[10px] text-[#ff7a00] group-hover:translate-x-0.5 transition-transform">Explore →</span>
                           </Link>
                         ))}
                       </div>

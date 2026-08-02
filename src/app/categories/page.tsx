@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { CATEGORIES } from '@/lib/categories';
 import { getAllPosts } from '@/lib/posts';
@@ -34,7 +35,7 @@ export default function CategoriesPage() {
 
         <AdSlot type="leaderboard" />
 
-        {/* Categories Grid */}
+        {/* Categories Grid with Rich Topic Images */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {CATEGORIES.map((cat) => {
             const count = posts.filter((p) => p.category.toLowerCase() === cat.slug.toLowerCase()).length;
@@ -43,30 +44,35 @@ export default function CategoriesPage() {
               <Link
                 key={cat.id}
                 href={`/category/${cat.slug}`}
-                className="group relative p-6 rounded-2xl bg-[#141417] border border-white/10 glass-card transition-all duration-300 hover:border-[#ff7a00]/50 hover:shadow-2xl flex flex-col justify-between"
+                className="group relative p-5 rounded-2xl bg-[#141417] border border-white/10 glass-card transition-all duration-300 hover:border-[#ff7a00]/50 hover:shadow-2xl flex flex-col justify-between overflow-hidden"
               >
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#ff7a00]/20 to-[#ff9e00]/10 border border-[#ff7a00]/30 flex items-center justify-center text-[#ff7a00] font-bold text-xl group-hover:scale-110 transition-transform">
-                      {cat.name.charAt(0)}
-                    </div>
-                    <span className="text-xs font-bold px-3 py-1 rounded-full bg-white/5 text-zinc-400 border border-white/5">
+                <div>
+                  {/* Category Image Header */}
+                  <div className="relative h-40 w-full rounded-xl overflow-hidden mb-4 border border-white/10 bg-zinc-900">
+                    <Image
+                      src={cat.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80'}
+                      alt={cat.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <span className="absolute bottom-3 right-3 text-xs font-bold px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/15">
                       {count} {count === 1 ? 'Article' : 'Articles'}
                     </span>
                   </div>
 
-                  <div>
+                  <div className="space-y-2">
                     <h3 className="text-xl font-bold text-white group-hover:text-[#ff7a00] transition-colors">
                       {cat.name}
                     </h3>
-                    <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+                    <p className="text-xs text-zinc-400 leading-relaxed">
                       {cat.description}
                     </p>
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-white/5 flex items-center justify-between text-xs font-bold text-[#ff7a00] mt-6">
-                  <span>Explore Articles</span>
+                  <span>Explore Topic Articles</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { getCategoryBySlug } from '@/lib/categories';
 import { getPostsByCategory } from '@/lib/posts';
@@ -48,19 +49,29 @@ export default async function CategoryDetailPage({ params }: CategoryPageProps) 
           <span className="text-[#ff7a00] font-bold">{category.name}</span>
         </nav>
 
-        {/* Category Header */}
-        <div className="p-8 rounded-2xl bg-[#141417] border border-white/10 glass-card space-y-3 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#ff7a00]/10 blur-[90px] pointer-events-none rounded-full" />
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#ff7a00]/10 border border-[#ff7a00]/30 text-xs font-bold text-[#ff7a00]">
-            <Folder className="w-3.5 h-3.5" />
-            <span>Category Archives</span>
+        {/* Category Header Card with Rich Topic Image Backdrop */}
+        <div className="p-8 sm:p-10 rounded-2xl border border-white/10 glass-card space-y-3 relative overflow-hidden bg-black">
+          <Image
+            src={category.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80'}
+            alt={category.name}
+            fill
+            className="object-cover opacity-25 pointer-events-none"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent pointer-events-none" />
+
+          <div className="relative z-10 space-y-3">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#ff7a00]/20 border border-[#ff7a00]/40 text-xs font-bold text-[#ff7a00] shadow-md">
+              <Folder className="w-3.5 h-3.5" />
+              <span>Category Topic Archives</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
+              {category.name}
+            </h1>
+            <p className="text-sm sm:text-base text-zinc-300 max-w-2xl leading-relaxed">
+              {category.description}
+            </p>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white">
-            {category.name}
-          </h1>
-          <p className="text-sm text-zinc-300 max-w-2xl leading-relaxed">
-            {category.description}
-          </p>
         </div>
 
         <AdSlot type="leaderboard" />

@@ -73,7 +73,17 @@ export function MobileMenu({ isOpen, onClose, onOpenSearch }: MobileMenuProps) {
               onClick={onClose}
               className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 text-zinc-300 hover:text-white"
             >
-              <span>{cat.name}</span>
+              <div className="flex items-center space-x-3">
+                <div className="w-6 h-6 rounded-md relative overflow-hidden border border-white/10 shrink-0 bg-zinc-800">
+                  <Image
+                    src={cat.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=100&q=80'}
+                    alt={cat.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <span>{cat.name}</span>
+              </div>
               <ChevronRight className="w-4 h-4 text-zinc-600" />
             </Link>
           ))}

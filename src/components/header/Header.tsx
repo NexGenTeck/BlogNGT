@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Search, Moon, Sun, Menu, ChevronDown, ExternalLink, Lock } from 'lucide-react';
+import { Search, Menu, ChevronDown, Lock } from 'lucide-react';
 import { SearchModal } from './SearchModal';
 import { MobileMenu } from './MobileMenu';
 import { CATEGORIES } from '@/lib/categories';
@@ -13,45 +13,26 @@ export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCategoryHovered, setIsCategoryHovered] = useState(false);
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
-
-    // Initialize theme from storage or DOM
-    const savedTheme = localStorage.getItem('nexgenteck_theme') as 'dark' | 'light' | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.classList.remove('dark', 'light');
-      document.documentElement.classList.add(savedTheme);
-    } else {
-      document.documentElement.classList.add('dark');
-    }
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    document.documentElement.classList.remove('dark', 'light');
-    document.documentElement.classList.add(nextTheme);
-    localStorage.setItem('nexgenteck_theme', nextTheme);
-  };
 
   return (
     <>
       <header
-        className={`sticky top-0 z-40 w-full transition-all duration-300 ${isScrolled ? 'glass-header py-3 shadow-2xl' : 'bg-transparent py-5'
-          }`}
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+          isScrolled ? 'glass-header py-3 shadow-2xl' : 'bg-transparent py-5'
+        }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            {/* Brand Logo matching Main NexGenTeck Website */}
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-between gap-4">
+            {/* Left: Brand Logo */}
+            <div className="flex items-center space-x-3 shrink-0">
               <Link href="/" className="flex items-center space-x-2.5 group">
                 <div className="w-10 h-10 rounded-xl relative overflow-hidden shadow-md group-hover:scale-105 transition-transform border border-white/10 shrink-0 bg-black">
                   <Image
@@ -64,7 +45,7 @@ export function Header() {
                 </div>
                 <div className="flex flex-col">
                   <div className="flex items-center space-x-1.5">
-                    <span className="text-xl font-extrabold text-white dark:text-white light:text-slate-900 tracking-tight">
+                    <span className="text-xl font-extrabold text-white tracking-tight">
                       NexGen<span className="text-[#ff7a00]">Teck</span>
                     </span>
                     <span className="text-[10px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/30">
@@ -78,9 +59,12 @@ export function Header() {
               </Link>
             </div>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center space-x-4 font-medium text-sm text-zinc-300">
-              <Link href="/" className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
+            {/* Middle: Main Navigation Menu (Home, Categories, About, Contact) */}
+            <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 font-medium text-sm text-zinc-300">
+              <Link
+                href="/"
+                className="px-3.5 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors"
+              >
                 Home
               </Link>
 
@@ -92,7 +76,7 @@ export function Header() {
               >
                 <Link
                   href="/categories"
-                  className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors flex items-center"
+                  className="px-3.5 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors flex items-center"
                 >
                   Categories <ChevronDown className="w-3.5 h-3.5 ml-1 text-zinc-400" />
                 </Link>
@@ -125,54 +109,62 @@ export function Header() {
                 )}
               </div>
 
-              <Link href="/about" className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
+              <Link
+                href="/about"
+                className="px-3.5 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors"
+              >
                 About
               </Link>
-              <Link href="/contact" className="px-4 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors">
+              <Link
+                href="/contact"
+                className="px-3.5 py-2 rounded-xl hover:text-[#ff7a00] hover:bg-white/5 transition-colors"
+              >
                 Contact
               </Link>
             </nav>
 
-            {/* Right Action Icons & Buttons */}
-            <div className="flex items-center space-x-3">
+            {/* Right: Prominent Long Search Bar, Admin Link, Subscribe Button */}
+            <div className="flex items-center space-x-3 shrink-0">
+              {/* Long & Prominent Search Input Box */}
+              <div
+                onClick={() => setIsSearchOpen(true)}
+                className="relative hidden sm:flex items-center w-48 md:w-64 lg:w-72 cursor-pointer group"
+              >
+                <Search className="w-4 h-4 text-[#ff7a00] absolute left-3.5 pointer-events-none group-hover:scale-110 transition-transform" />
+                <input
+                  type="text"
+                  readOnly
+                  placeholder="Search articles, guides, tech..."
+                  className="w-full pl-10 pr-10 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-xs text-white placeholder-zinc-400 cursor-pointer focus:outline-none transition-all"
+                />
+                <span className="absolute right-3 text-[10px] font-mono text-zinc-400 bg-white/10 px-1.5 py-0.5 rounded border border-white/5">
+                  ⌘K
+                </span>
+              </div>
+
+              {/* Mobile Search Button Icon */}
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                aria-label="Search articles"
+                className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-[#ff7a00] border border-white/5 transition-all sm:hidden"
+              >
+                <Search className="w-4 h-4 text-[#ff7a00]" />
+              </button>
+
               {/* Admin Portal Link */}
               <Link
                 href="/admin"
-                className="p-2.5 rounded-xl bg-white/5 hover:bg-[#ff7a00]/10 text-zinc-300 hover:text-[#ff7a00] border border-white/5 transition-all flex items-center space-x-1.5"
+                className="px-3 py-2 rounded-xl bg-white/5 hover:bg-[#ff7a00]/10 text-zinc-300 hover:text-[#ff7a00] border border-white/5 transition-all flex items-center space-x-1.5 shrink-0"
                 title="Admin Portal"
               >
                 <Lock className="w-4 h-4 text-[#ff7a00]" />
                 <span className="text-xs font-semibold hidden md:inline">Admin</span>
               </Link>
 
-              {/* Instant Search Trigger */}
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                aria-label="Search articles"
-                className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-[#ff7a00] border border-white/5 transition-all flex items-center space-x-2"
-              >
-                <Search className="w-4 h-4 text-[#ff7a00]" />
-                <span className="text-xs text-zinc-400 hidden sm:inline">Search...</span>
-                <span className="text-[10px] text-zinc-500 bg-white/5 px-1.5 py-0.5 rounded hidden md:inline">⌘K</span>
-              </button>
-
-              {/* Working Theme Switcher Button */}
-              <button
-                onClick={toggleTheme}
-                title={theme === 'dark' ? 'Switch to Light Theme' : 'Switch to Dark Theme'}
-                className="p-2.5 rounded-xl bg-white/5 hover:bg-[#ff7a00]/20 border border-white/5 text-[#ff7a00] transition-all"
-              >
-                {theme === 'dark' ? (
-                  <Moon className="w-4 h-4" />
-                ) : (
-                  <Sun className="w-4 h-4 text-amber-400" />
-                )}
-              </button>
-
               {/* Subscribe CTA Button */}
               <a
                 href="#newsletter"
-                className="hidden sm:inline-flex items-center px-4 py-2 rounded-xl bg-gradient-to-r from-[#ff7a00] to-[#ff9e00] hover:opacity-95 text-black font-bold text-xs shadow-md brand-glow-hover transition-all"
+                className="hidden sm:inline-flex items-center px-4 py-2 rounded-xl bg-gradient-to-r from-[#ff7a00] to-[#ff9e00] hover:opacity-95 text-black font-bold text-xs shadow-md brand-glow-hover transition-all shrink-0"
               >
                 Subscribe
               </a>
